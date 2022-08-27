@@ -1,0 +1,23 @@
+[
+  {
+    "tipo": "Caja de Ahorro",
+    "moneda": "$",
+    "cuenta": "5069-5689756/4",
+    "identificador": "Cuenta",
+    "saldo": "$ 150.000"
+  },
+  {
+    "tipo": "Cta Corriente",
+    "moneda": "$",
+    "cuenta": "5069-5689652/4",
+    "identificador": "Cuenta",
+    "saldo": "$ 200.000,00"
+  },
+  {
+    "tipo": "Caja de Ahorro",
+    "moneda": "USD",
+    "cuenta": "5069-5685686/4",
+    "identificador": "Cuenta",
+    "saldo": "USD 5.000,00"
+  }
+]
