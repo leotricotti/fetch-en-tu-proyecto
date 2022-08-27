@@ -62,13 +62,6 @@ const actualizarSaldoStorage = () =>
 const numeroADinero = () => numeroAPesos(depositar());
 //Codigo que convierte a pesos el saldo simulado
 const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
-//Funcion que coinvierte un numero al formato de pesos argentinos
-const numeroAPesos = (dinero) => {
-  return (dinero = new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: "ARS",
-  }).format(dinero));
-};
 //Codigo que dispara un alerta que confirma o cancela la operación
 const text = document.querySelector(".text");
 const confirmarOperacion = () => {
