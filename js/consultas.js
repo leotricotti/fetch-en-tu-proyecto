@@ -1,14 +1,3 @@
-//Funcion que guarda la informacion del json en localstorage
-const guardarLocal = (clave, valor) => localStorage.setItem(clave, valor);
-//Funcion que captura la informacion de las cuentas simuladas y lo inserta en el local storage 
-function capturarCuentas(){fetch("../../json/cuentas.json")
-  .then((resp) => resp.json())
-  .then((data) => {
-    let cuentas = data;
-    guardarLocal("cuentas", JSON.stringify(cuentas));
-})}
-//Llamada al la funcion
-capturarCuentas();
 //Funcion que al consultar el saldo devuelve una tabla con el saldo de las cuentas bancarias simuladas
 function mostarSaldo() {
   //Codigo que recupera la informacion de las cuentas simuladas del local storage

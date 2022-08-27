@@ -1,7 +1,9 @@
 //Variable que recupera la informacion del local storage
 let saldoCajaOperable = localStorage.getItem("saldo");
+console.log(saldoCajaOperable);
 //Funcion que convierte el dato recuperado del localstorage a numero
 const convertirStorageANumero = () => parseFloat(saldoCajaOperable);
+console.log(convertirStorageANumero());
 //Codigo que captura el boton que confirma la operacion
 const captura = document.getElementById("depositos-submit");
 //Codigo que captura el boton que modifica la operacion
@@ -67,7 +69,6 @@ const numeroAPesos = (dinero) => {
     currency: "ARS",
   }).format(dinero));
 };
-
 //Codigo que dispara un alerta que confirma o cancela la operación
 const text = document.querySelector(".text");
 const confirmarOperacion = () => {

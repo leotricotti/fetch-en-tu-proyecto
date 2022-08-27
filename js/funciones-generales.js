@@ -1,32 +1,29 @@
-//Funcion que captura el saldo almacenado en el json cuentas y lo inserta en el local storage 
-function capturarSaldo(){fetch("../../json/cuentas.json")
-  .then((resp) => resp.json())
-  .then((data) => {
-    let saldo = data[0].saldo;
-    let saldoCajaAhorro = (localStorage.getItem("saldo"));
-    saldoCajaAhorro == null && localStorage.setItem("saldo", saldo);
-})}
-//Llamada a la funcion 
-capturarSaldo();
-//Constructor que crea los objetos que van a  simular las operaciones bancarias realizadas por el usuario en el último mes
-class Operacion {
-  constructor(fecha, hora, operacion, monto, saldo) {
-    this.fecha = fecha;
-    this.hora = hora;
-    this.operacion = operacion;
-    this.monto = monto;
-    this.saldo = saldo;
-  }
-}
-//Funcion que carga las oeraciones bancarias simuladas al json operaciones
-function cargarOperaciones(json, array){
-  json.unshift(new Operacion(array));
-}
 //Funcion que coinvierte un numero al formato de pesos argentinos
-numeroAPesos = (dinero) => {
+const numeroAPesos = (dinero) => {
   return (dinero = new Intl.NumberFormat("es-AR", {
     style: "currency",
     currency: "ARS",
   }).format(dinero));
 }
-
+//Codigo que crea la variable donde se almacenará el saldo simulado
+let saldoCajaAhorro = (localStorage.getItem("saldo"));
+//Operador avanzado que verifica si existe el objeto saldo, si no es así lo crea
+saldoCajaAhorro == null && localStorage.setItem("saldo", 150000);
+//Creacion del array que va a contener las cuentas simuladas
+const cuentas = [];
+//Funcion que carga los objetos literales que contienen la informacion de las cuentas bancarias simuladas al array de cuentas
+function cargarCuentas() {
+  cuentas.push({tipo: "Caja de Ahorro", moneda: "$", cuenta: "5069-5689756/4", identificador: "Cuenta", saldo: `${numeroAPesos(saldoCajaAhorro)}`});
+  cuentas.push({tipo: "Cta Corriente", moneda: "$", cuenta: "5069-5689652/4", identificador: "Cuenta", saldo: "$ 200.000,00"});
+  cuentas.push({tipo: "Caja de Ahorro", moneda: "USD", cuenta: "5069-5685686/4", identificador: "Cuenta", saldo: "USD 5.000,00"});
+}  
+//LLamada a la funcion
+cargarCuentas();
+//Funcion que carga las oeraciones bancarias simuladas al json operaciones
+function cargarOperaciones(json, array){
+  json.unshift(new Operacion(array));
+}
+//Funcion que convierte la informacion a JSON y la guarda en el localstorage para luego ser recuperada
+const guardarLocal = (clave, valor) => localStorage.setItem(clave, valor);
+//Llamadas a la funcion para guardar los datos necesarios para iniciar el programa
+guardarLocal("cuentas", JSON.stringify(cuentas));
