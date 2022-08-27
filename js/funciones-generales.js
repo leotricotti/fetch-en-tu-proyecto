@@ -29,3 +29,4 @@ numeroAPesos = (dinero) => {
     currency: "ARS",
   }).format(dinero));
 }
+

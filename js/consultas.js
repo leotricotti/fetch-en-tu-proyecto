@@ -1,3 +1,14 @@
+//Funcion que guarda la informacion del json en localstorage
+const guardarLocal = (clave, valor) => localStorage.setItem(clave, valor);
+//Funcion que captura la informacion de las cuentas simuladas y lo inserta en el local storage 
+function capturarCuentas(){fetch("../../json/cuentas.json")
+  .then((resp) => resp.json())
+  .then((data) => {
+    let cuentas = data;
+    guardarLocal("cuentas", JSON.stringify(cuentas));
+})}
+//Llamada al la funcion
+capturarCuentas();
 //Funcion que al consultar el saldo devuelve una tabla con el saldo de las cuentas bancarias simuladas
 function mostarSaldo() {
   //Codigo que recupera la informacion de las cuentas simuladas del local storage
@@ -43,10 +54,19 @@ function mostarSaldo() {
   let tableContainer = document.querySelector(".table-container");
   tableContainer.append(table);
 }
+//Funcion que captura la informacion de las cuentas simuladas y lo inserta en el local storage 
+function capturarOperaciones(){fetch("../../json/operaciones.json")
+  .then((resp) => resp.json())
+  .then((data) => {
+    let operaciones = data;
+    guardarLocal("operaciones", JSON.stringify(operaciones));
+})}
+
+capturarOperaciones();
 //Funcion que al consultar los movimientos devuelve una tabla con los movimientos de las cuentas bancarias simuladas
 function mostarMovimientos() {
   //Codigo que recupera los movimientos simulados almacenados en el local storage
-  const movimientosLocalStorage = JSON.parse(localStorage.getItem("operacionesOrdenadas"));
+  const movimientosLocalStorage = JSON.parse(localStorage.getItem("operaciones"));
   //Codigo para cambiar el subtitulo del simulador
   let text = document.querySelector(".text");
   text.innerText = "Ultimos Movimientos";
