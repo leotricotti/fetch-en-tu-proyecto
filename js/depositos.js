@@ -36,7 +36,6 @@ captura.onclick = () => {
   modificarOpcion();
   actualizarSaldoStorage();
 };
-const nombrar = () => "Operacion";
 //Funcion que captura la fecha en que se realiza la operación
 const capturarDiaDeposito = () => new Date().toLocaleDateString();
 //Funcion que captura la hora en que se realiza la operacion
@@ -62,8 +61,7 @@ const actualizarSaldoStorage = () =>
 const numeroADinero = () => numeroAPesos(depositar());
 //Codigo que convierte a pesos el saldo simulado
 const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
-//Codigo que dispara un alerta que confirma o cancela la operación
-const text = document.querySelector(".text");
+//Funcion que dispara un alert que confirma o cancela la operación
 const confirmarOperacion = () => {
   Swal.fire({
     icon: "question",
@@ -97,22 +95,3 @@ const confirmarOperacion = () => {
 clean.onclick = () => {
   inputDepositos.value = "";
 };
-//Funcion que modifica el HTML al momento de devolver la operacion solicitada por el usuario
-function agregarTexto() {
-  //Codigo que agrega texto al html
-  let textoAgregado = document.querySelector(".agregar-texto");
-  textoAgregado.innerText = "Desea realizar otra operacion?";
-}
-//Funcion que modifica el HTML al momento de devolver la operacion solicitada por el usuario
-function modificarOpcion() {
-  //Codigo que cambia texto del html
-  let opcionModificada = document.querySelector(".opcion-modificada");
-  opcionModificada.innerHTML = "";
-  opcionModificada.innerHTML =
-    "<p>Si</p> <a href='../cajero/cajero.html'> <div class='btn-derecha' id='btn-saldo'></div></a></li>";
-  //Codigo que cambia texto del html
-  let opcionModificadaDos = document.querySelector(".opcion-modificada-dos");
-  opcionModificadaDos.innerHTML = "";
-  opcionModificadaDos.innerHTML =
-    '<p>No</p> <a href="../salir/salir.html" class="link"> <div class="btn-derecha"></div></a>';
-}
