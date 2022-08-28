@@ -1,24 +1,33 @@
-let valorDolarCompra;
-let valorDolarVenta;
 //Variable que recupera la informacion del local storage
 let saldoCajaOperable = localStorage.getItem("saldo");
-
-const cantidadDolares = document.getElementById("monedas-input");
-const dolaresComprados = document.getElementById("monedas-submit");
-
+//Funcion que convierte el dato recuperado del localstorage a numero
+const convertirStorageANumero = () => parseFloat(saldoCajaOperable);
+//Variables necesarias para operar
+let valorDolarCompra;
+let valorDolarVenta;
 let costoDolarComprado;
-
+//Codigo que captura el campo para ingresar los dolares que se desean comprar
+const cantidadDolares = document.getElementById("monedas-input");
+//Codigo que captura el boton que confirma la operacion
+const dolaresComprados = document.getElementById("monedas-submit");
+//Codigo que captura el boton que modifica la operacion
+const clean = document.getElementById("limpiar-campo");
+// Funcion que limpia el campo input en caso de que el usuario quiera modificar el importe a depositar
+clean.onclick = () => {
+  inputDepositos.value = "";
+};
+//Funcion que calcula la compra de dolares
 const comprarDolares = () => {
   costoDolarComprado = (
     parseFloat(cantidadDolares.value) * parseFloat(valorDolarVenta)
   ).toFixed(2);
   return costoDolarComprado;
 };
-
+//Funcion que carga la table que muestra la cotizacion del dolar en tiempo real
 window.onload = () => {
   obtenerValorDolar();
 };
-
+//Funcion que inyecta la tabla con la cotizacion del dolar en tiempo real
 const mostrarCotizacion = () => {
   //Código que crea el elemento tabla y le asigna sus clases
   let table = document.createElement("table");
@@ -56,7 +65,7 @@ const mostrarCotizacion = () => {
   let tableContainer = document.querySelector(".table-container");
   tableContainer.append(table);
 };
-
+//Funcion que obtiene el valor del dolar blue en tiempo real
 async function obtenerValorDolar() {
   const URLDOLAR = "https://api-dolar-argentina.herokuapp.com/api/dolarblue";
   const resp = await fetch(URLDOLAR);
@@ -66,7 +75,7 @@ async function obtenerValorDolar() {
   mostrarCotizacion();
   comprarDolares();
 }
-
+//Funcion que dispara un alert que confirma o cancela la operación
 const confirmarOperacion = () => {
   Swal.fire({
     icon: "question",
@@ -80,7 +89,6 @@ const confirmarOperacion = () => {
       popup: "animate__animated animate__fadeIn",
     }
   }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       Swal.fire(
         'Operación realizada con exito. Su saldo es ' + convertirSaldoADinero(), '', 'success'
@@ -96,12 +104,12 @@ const confirmarOperacion = () => {
     }
   })
 }
-
+//Funcion que comprueba si el usuario compra la cantidad permitida de dolares mensuales y opera en consecuencia
 dolaresComprados.onclick = () => {
   if ((cantidadDolares.value > 0) && (cantidadDolares.value < 200)){
     confirmarOperacion();
   } else {
-    //Funcion que devuelve un alert si la opcion ingresada es invalida
+  //Codigo que devuelve un alert si la opcion ingresada es invalida
     Swal.fire({
       icon: "warning",
       title: "Ingrese una opción valida",
@@ -113,3 +121,4 @@ dolaresComprados.onclick = () => {
     });
   }
 };
+
