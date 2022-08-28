@@ -1,19 +1,20 @@
-let valorDolar;
+let valorDolarCompra;
+let valorDolarVenta;
 //Variable que recupera la informacion del local storage
 let saldoCajaOperable = localStorage.getItem("saldo");
 
 const cantidadDolares = document.getElementById("monedas-input");
 
+
 let costoDolarComprado;
 
-const comprarDolares = (cant, valor) => {
-  costoDolares = cant * valor;
-  return costoDolares;
+const comprarDolares = () => {
+  costoDolarComprado = ((parseFloat(cantidadDolares.value) * parseFloat(valorDolarVenta))).toFixed(2);
+  return costoDolarComprado;
 };
 
 window.onload = () => {
   obtenerValorDolar();
-  mostrarCotizacion();
 }
 
 const mostrarCotizacion = () => {
@@ -60,8 +61,8 @@ async function obtenerValorDolar() {
   const data = await resp.json();
   valorDolarCompra = data.compra;
   valorDolarVenta = data.venta;  
-  costoDolarComprado = comprarDolares((parseFloat(cantidadDolares.value), parseFloat(valorDolar)).toFixed(2));
   mostrarCotizacion();
+  comprarDolares();
 }
 
 
@@ -69,5 +70,10 @@ const dolaresComprados = document.getElementById("monedas-submit");
 
 
 dolaresComprados.onclick = () => {
-  obtenerValorDolar();
+  if(cantidadDolares.value < 200){
+    alert(comprarDolares());
+  }
+  else{
+    alert("no");
+  }
 };
