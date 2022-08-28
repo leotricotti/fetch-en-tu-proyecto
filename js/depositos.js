@@ -32,8 +32,6 @@ captura.onclick = () => {
   );
   //Llamada a las funciones declaradas
   confirmarOperacion();
-  agregarTexto();
-  modificarOpcion();
   actualizarSaldoStorage();
 };
 //Funcion que captura la fecha en que se realiza la operación
