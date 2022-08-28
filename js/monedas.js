@@ -5,17 +5,18 @@ let saldoCajaOperable = localStorage.getItem("saldo");
 
 const cantidadDolares = document.getElementById("monedas-input");
 
-
 let costoDolarComprado;
 
 const comprarDolares = () => {
-  costoDolarComprado = ((parseFloat(cantidadDolares.value) * parseFloat(valorDolarVenta))).toFixed(2);
+  costoDolarComprado = (
+    parseFloat(cantidadDolares.value) * parseFloat(valorDolarVenta)
+  ).toFixed(2);
   return costoDolarComprado;
 };
 
 window.onload = () => {
   obtenerValorDolar();
-}
+};
 
 const mostrarCotizacion = () => {
   //Código que crea el elemento tabla y le asigna sus clases
@@ -53,27 +54,33 @@ const mostrarCotizacion = () => {
   //Codigo que asigna a un padre la tabla creada anteriormente
   let tableContainer = document.querySelector(".table-container");
   tableContainer.append(table);
-}
+};
 
 async function obtenerValorDolar() {
   const URLDOLAR = "https://api-dolar-argentina.herokuapp.com/api/dolarblue";
   const resp = await fetch(URLDOLAR);
   const data = await resp.json();
   valorDolarCompra = data.compra;
-  valorDolarVenta = data.venta;  
+  valorDolarVenta = data.venta;
   mostrarCotizacion();
   comprarDolares();
 }
 
-
 const dolaresComprados = document.getElementById("monedas-submit");
 
-
 dolaresComprados.onclick = () => {
-  if(cantidadDolares.value < 200){
+  if (cantidadDolares.value < 200) {
     alert(comprarDolares());
-  }
-  else{
-    alert("no");
+  } else {
+    //Funcion que devuelve un alert si la opcion ingresada es invalida
+    Swal.fire({
+      icon: "warning",
+      title: "Ingrese una opción valida",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Aceptar",
+      showClass: {
+        popup: "animate__animated animate__fadeIn",
+      },
+    });
   }
 };
