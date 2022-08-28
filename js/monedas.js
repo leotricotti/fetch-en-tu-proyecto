@@ -11,6 +11,11 @@ const comprarDolares = (cant, valor) => {
   return costoDolares;
 };
 
+window.onload = () => {
+  obtenerValorDolar();
+  mostrarCotizacion();
+}
+
 const mostrarCotizacion = () => {
   //Código que crea el elemento tabla y le asigna sus clases
   let table = document.createElement("table");
@@ -37,8 +42,8 @@ const mostrarCotizacion = () => {
           <td>${new Date().toLocaleDateString()}</td>
           <td>${new Date().toLocaleTimeString()}</td>
           <td>Dolar Estadounidense</td>
-          <td>${numeroAPesos(valorDolar)}</td>
-          <td>${numeroAPesos(valorDolar)}</td>
+          <td>${numeroAPesos(valorDolarCompra)}</td>
+          <td>${numeroAPesos(valorDolarVenta)}</td>
         </tr>
       `;
   //Codigo que agrega la cabeza y el cuerpo a la tabla creada anteriormente
