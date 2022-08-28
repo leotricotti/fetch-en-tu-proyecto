@@ -4,6 +4,7 @@ let valorDolarVenta;
 let saldoCajaOperable = localStorage.getItem("saldo");
 
 const cantidadDolares = document.getElementById("monedas-input");
+const dolaresComprados = document.getElementById("monedas-submit");
 
 let costoDolarComprado;
 
@@ -66,11 +67,39 @@ async function obtenerValorDolar() {
   comprarDolares();
 }
 
-const dolaresComprados = document.getElementById("monedas-submit");
+const confirmarOperacion = () => {
+  Swal.fire({
+    icon: "question",
+    title: `Desea adquirir la USD ${cantidadDolares.value} a ${numeroAPesos(comprarDolares())} ?`,
+    confirmButtonText: 'Save',
+    confirmButtonColor: "#3085d6",
+    confirmButtonText: "Aceptar",
+    showCancelButton: true,
+    cancelButtonText: "Cancelar",
+    showClass: {
+      popup: "animate__animated animate__fadeIn",
+    }
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Operación realizada con exito. Su saldo es ' + convertirSaldoADinero(), '', 'success'
+      ).then(function () {
+        window.location.href = "../opcion/opcion.html";
+      })
+    } else if (result.isDismissed) {
+      Swal.fire(
+        'Operación cancelada', '', 'info'
+      ).then(function () {
+        window.location.href = "../opcion/opcion.html";
+      })
+    }
+  })
+}
 
 dolaresComprados.onclick = () => {
-  if (cantidadDolares.value < 200) {
-    alert(comprarDolares());
+  if ((cantidadDolares.value > 0) && (cantidadDolares.value < 200)){
+    confirmarOperacion();
   } else {
     //Funcion que devuelve un alert si la opcion ingresada es invalida
     Swal.fire({
