@@ -1,7 +1,7 @@
-//Funcion que carga la table que muestra la cotizacion del dolar en tiempo real
+//Funcion que carga la funcion que inyecta la tabla con la cotizacion del dolar en tiempo real
 window.onload = () => {
   obtenerValorDolar();
-};
+}
 //Variable que recupera la informacion del local storage
 let saldoCajaOperable = localStorage.getItem("saldo");
 //Funcion que convierte el dato recuperado del localstorage a numero
@@ -14,7 +14,7 @@ let costoDolarComprado;
 const cantidadDolares = document.getElementById("monedas-input");
 //Codigo que captura el boton que confirma la operacion
 const dolaresComprados = document.getElementById("monedas-submit");
-//Codigo que captura el boton que modifica la operacion
+//Codigo que captura el boton que modifica el valor ingresado
 const clean = document.getElementById("limpiar-campo");
 // Funcion que limpia el campo input en caso de que el usuario quiera modificar el importe a depositar
 clean.onclick = () => {
@@ -27,6 +27,14 @@ const comprarDolares = () => {
   ).toFixed(2);
   return costoDolarComprado;
 };
+//Funcion que coinvierte un numero al formato a dolar
+const numeroADolar = (dinero) => {
+  return (dinero = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    currencyDisplay: "name",
+  }).format(dinero));
+}
 //Funcion que inyecta la tabla con la cotizacion del dolar en tiempo real
 const mostrarCotizacion = () => {
   //Código que crea el elemento tabla y le asigna sus clases
@@ -79,7 +87,7 @@ async function obtenerValorDolar() {
 const confirmarOperacion = () => {
   Swal.fire({
     icon: "question",
-    title: `Desea adquirir la USD ${cantidadDolares.value} a ${numeroAPesos(comprarDolares())} ?`,
+    title: `Desea adquirir ${numeroADolar(cantidadDolares.value)} a ${numeroAPesos(comprarDolares())} ?`,
     confirmButtonText: 'Save',
     confirmButtonColor: "#3085d6",
     confirmButtonText: "Aceptar",
@@ -94,6 +102,8 @@ const confirmarOperacion = () => {
         'Operación realizada con exito. Su saldo es ' + convertirSaldoADinero(), '', 'success'
       ).then(function () {
         window.location.href = "../opcion/opcion.html";
+        //Llamada a las funciones
+        actualizarSaldoStorage();        
       })
     } else if (result.isDismissed) {
       Swal.fire(
@@ -120,8 +130,6 @@ dolaresComprados.onclick = () => {
       },
     });
   }
-  //Llamada a las funciones
-  actualizarSaldoStorage();
 };
 //Funcion que crea el objeto operaciones para ser incorparado al Json operaciones
 actualizarJson = () => {
@@ -150,15 +158,13 @@ const capturarDia = () => new Date().toLocaleDateString();
 const capturarHora = () => new Date().toLocaleTimeString();
 //Codigo que informa el tipo de operacion
 const nombrarOperacion = () => "Compra dolares";
-//Codigo que actualiza el saldo de la caja de ahorro simulada
-const actualizarSaldoCajaAhorro = () => {
-  saldoCajaAhorro = parsearDinero() + convertirStorageANumero();
-  return saldoCajaAhorro;
-};
-//Funcion que convierte a pesos el dato parseado
-const numeroADinero = () => numeroAPesos(comprarDivisas());
 //Codigo que convierte a pesos el saldo simulado
 const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
+//Codigo que actualiza el saldo de la caja de ahorro simulada
+const actualizarSaldoCajaAhorro = () => {
+  saldoCajaAhorro = convertirStorageANumero() - comprarDolares();
+  return saldoCajaAhorro;
+};
 //Funcion que actualiza el saldo almacenado en el localstorage
 const actualizarSaldoStorage = () => (saldoCajaAhorro = localStorage.setItem("saldo", actualizarSaldoCajaAhorro()));
 
