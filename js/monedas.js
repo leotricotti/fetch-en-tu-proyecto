@@ -120,8 +120,10 @@ dolaresComprados.onclick = () => {
       },
     });
   }
+  //Llamada a las funciones
+  actualizarSaldoStorage();
 };
-
+//Funcion que crea el objeto operaciones para ser incorparado al Json operaciones
 actualizarJson = () => {
   // Constructor del objeto operaciones
   class Operacion {
@@ -141,9 +143,6 @@ actualizarJson = () => {
     numeroADinero(),
     convertirSaldoADinero()
   );
-  //Llamada a las funciones declaradas
-  confirmarOperacion();
-  actualizarSaldoStorage();
 };
 //Funcion que captura la fecha en que se realiza la operación
 const capturarDia = () => new Date().toLocaleDateString();
@@ -161,8 +160,5 @@ const numeroADinero = () => numeroAPesos(comprarDivisas());
 //Codigo que convierte a pesos el saldo simulado
 const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
 //Funcion que actualiza el saldo almacenado en el localstorage
-const actualizarSaldoStorage = () =>
-  (saldoCajaAhorro = localStorage.setItem(
-    "saldo",
-    actualizarSaldoCajaAhorro()
-  ));
+const actualizarSaldoStorage = () => (saldoCajaAhorro = localStorage.setItem("saldo", actualizarSaldoCajaAhorro()));
+
