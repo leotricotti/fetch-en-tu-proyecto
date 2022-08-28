@@ -1,3 +1,7 @@
+//Funcion que carga la table que muestra la cotizacion del dolar en tiempo real
+window.onload = () => {
+  obtenerValorDolar();
+};
 //Variable que recupera la informacion del local storage
 let saldoCajaOperable = localStorage.getItem("saldo");
 //Funcion que convierte el dato recuperado del localstorage a numero
@@ -22,10 +26,6 @@ const comprarDolares = () => {
     parseFloat(cantidadDolares.value) * parseFloat(valorDolarVenta)
   ).toFixed(2);
   return costoDolarComprado;
-};
-//Funcion que carga la table que muestra la cotizacion del dolar en tiempo real
-window.onload = () => {
-  obtenerValorDolar();
 };
 //Funcion que inyecta la tabla con la cotizacion del dolar en tiempo real
 const mostrarCotizacion = () => {
@@ -122,3 +122,47 @@ dolaresComprados.onclick = () => {
   }
 };
 
+actualizarJson = () => {
+  // Constructor del objeto operaciones
+  class Operacion {
+    constructor(fecha, hora, operacion, monto, saldo) {
+      this.fecha = fecha;
+      this.hora = hora;
+      this.operacion = operacion;
+      this.monto = monto;
+      this.saldo = saldo;
+    }
+  }
+  //Codigo que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
+  nuevaOperacion = new Operacion(
+    capturarDia(),
+    capturarHora(),
+    nombrarOperacion(),
+    numeroADinero(),
+    convertirSaldoADinero()
+  );
+  //Llamada a las funciones declaradas
+  confirmarOperacion();
+  actualizarSaldoStorage();
+};
+//Funcion que captura la fecha en que se realiza la operación
+const capturarDia = () => new Date().toLocaleDateString();
+//Funcion que captura la hora en que se realiza la operacion
+const capturarHora = () => new Date().toLocaleTimeString();
+//Codigo que informa el tipo de operacion
+const nombrarOperacion = () => "Compra dolares";
+//Codigo que actualiza el saldo de la caja de ahorro simulada
+const actualizarSaldoCajaAhorro = () => {
+  saldoCajaAhorro = parsearDinero() + convertirStorageANumero();
+  return saldoCajaAhorro;
+};
+//Funcion que convierte a pesos el dato parseado
+const numeroADinero = () => numeroAPesos(comprarDivisas());
+//Codigo que convierte a pesos el saldo simulado
+const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
+//Funcion que actualiza el saldo almacenado en el localstorage
+const actualizarSaldoStorage = () =>
+  (saldoCajaAhorro = localStorage.setItem(
+    "saldo",
+    actualizarSaldoCajaAhorro()
+  ));
