@@ -35,9 +35,7 @@
       <!-- Main -->
       <main class="cajero-container">
         <div class="text-container">
-          <p class="text">Seleccione la cotizacion que desea consultar</p>
-        </div>
-        <div class="table-container">
+          <p class="text">Ingrese la cantidad de dolares que desea comprar: $ <input type="number" class="input" id="monedas-input"></p>
         </div>
         <section class="teclado-container">
           <div class="teclado-izquierda">
@@ -53,22 +51,14 @@
                 </a>
               </li>
               <li class="teclas-izquierda">
-                <a href="#" class="link">
-                  <div class="btn-izquierda"  id="btn-dolar"></div>
+                <a href="#" class="link link-disable">
+                  <div class="btn-izquierda btn-disable"></div>
                 </a>
-                <p>
-                  &lt;&lt; -- <br />
-                  Dolar
-                </p>
               </li>
               <li class="teclas-izquierda">
-                <a href="#" class="link">
-                  <div class="btn-izquierda"></div>
+                <a href="#" class="link link-disable">
+                  <div class="btn-izquierda btn-disable"></div>
                 </a>
-                <p class="quitar-texto-dos">
-                  &lt;&lt; -- <br />
-                  Euro
-                </p>
               </li>
             </ul>
           </div>
@@ -85,17 +75,15 @@
                   <div class="btn-derecha btn-disable"></div>
                 </a>
               </li>
-              <li class="teclas-derecha" id="opcion-modificada">
-                <p class=>Real -- &gt;&gt;</p>
-                <a href="#">
-                  <div class="btn-derecha" id="btn-saldo"></div>
-                </a>
-              </li>
-              <li class="teclas-derecha" id="opcion-modificada-dos">
-                <p>Menu Principal -- &gt;&gt;</p>
-                <a href="../cajero/cajero.html" class="link">
+              <li class="teclas-derecha opcion-modificada">
+                <p>Modificar -- &gt;&gt;</p>
+                <a href="#" class="link" id="limpiar-campo">
                   <div class="btn-derecha"></div>
                 </a>
+              </li>
+              <li class="teclas-derecha opcion-modificada-dos" id="dolar-submit">
+                <p>Aceptar -- &gt;&gt;</p>
+                  <div class="btn-derecha link"></div>
               </li>
             </ul>
             <div class="separador"></div>
