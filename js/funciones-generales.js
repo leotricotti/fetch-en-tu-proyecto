@@ -19,23 +19,12 @@ function cargarCuentas() {
 }  
 //LLamada a la funcion
 cargarCuentas();
-//Funcion que carga las oeraciones bancarias simuladas al json operaciones
-function cargarOperaciones(json, array){
-  json.unshift(new Operacion(array));
-}
 //Funcion que convierte la informacion a JSON y la guarda en el localstorage para luego ser recuperada
 const guardarLocal = (clave, valor) => localStorage.setItem(clave, valor);
 //Llamadas a la funcion para guardar los datos necesarios para iniciar el programa
 guardarLocal("cuentas", JSON.stringify(cuentas));
 
-//Funcion que captura la fecha en que se realiza la operación
-const capturarDia = () => new Date().toLocaleDateString();
-//Funcion que captura la hora en que se realiza la operacion
-const capturarHora = () => new Date().toLocaleTimeString();
-//Codigo que convierte a pesos el saldo simulado
-const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
 
-//Funcion que actualiza el saldo almacenado en el localstorage
-const actualizarSaldoStorage = () => (saldoCajaAhorro = localStorage.setItem("saldo", actualizarSaldoCajaAhorro()));
+
 
 
