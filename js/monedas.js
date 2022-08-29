@@ -62,8 +62,8 @@ const mostrarCotizacion = () => {
           <td>${new Date().toLocaleDateString()}</td>
           <td>${new Date().toLocaleTimeString()}</td>
           <td>Dolar Estadounidense</td>
-          <td>${numeroADinero(valorDolarCompra)}</td>
-          <td>${numeroADinero(valorDolarVenta)}</td>
+          <td>${numeroAPesos(valorDolarCompra)}</td>
+          <td>${numeroAPesos(valorDolarVenta)}</td>
         </tr>
       `;
   //Codigo que agrega la cabeza y el cuerpo a la tabla creada anteriormente
@@ -87,7 +87,7 @@ async function obtenerValorDolar() {
 const confirmarOperacion = () => {
   Swal.fire({
     icon: "question",
-    title: `Desea adquirir ${numeroADolar(cantidadDolares.value)} a ${numeroADinero(comprarDolares())} ?`,
+    title: `Desea adquirir ${numeroADolar(cantidadDolares.value)} a ${numeroAPesos(comprarDolares())} ?`,
     confirmButtonText: 'Save',
     confirmButtonColor: "#3085d6",
     confirmButtonText: "Aceptar",
@@ -133,13 +133,35 @@ dolaresComprados.onclick = () => {
     });
   }
 }
+//Funcion que crea el objeto operaciones para ser incorparado al Json operaciones
+const crearOperacion = () => {
+  // Constructor del objeto operaciones
+  class Operacion {
+    constructor(fecha, hora, operacion, monto, saldo) {
+      this.fecha = fecha;
+      this.hora = hora;
+      this.operacion = operacion;
+      this.monto = monto;
+      this.saldo = saldo;
+    }
+  }
+  //Codigo que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
+  nuevaOperacion = new Operacion(
+    capturarDia(),
+    capturarHora(),
+    nombrarOperacion(),
+    numeroADinero(),
+    convertirSaldoADinero(),
+    actualizarSaldoStorage()
+  );
+}
 //Codigo que informa el tipo de operacion
 const nombrarOperacion = () => "Compra dolares";
 //Codigo que actualiza el saldo de la caja de ahorro simulada
 const actualizarSaldoCajaAhorro = () => {
   saldoCajaAhorro = convertirStorageANumero() - comprarDolares();
   return saldoCajaAhorro;
-}
+};
 
 function escribirJson(){
   fetch('../json/operaciones.json')
@@ -150,4 +172,3 @@ function escribirJson(){
       });
 }
 
-console.log(crearOperacion());

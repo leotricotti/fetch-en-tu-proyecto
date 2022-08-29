@@ -33,7 +33,7 @@ const capturarDia = () => new Date().toLocaleDateString();
 //Funcion que captura la hora en que se realiza la operacion
 const capturarHora = () => new Date().toLocaleTimeString();
 //Codigo que convierte a pesos el saldo simulado
-const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
+const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
 
 //Funcion que actualiza el saldo almacenado en el localstorage
 const actualizarSaldoStorage = () => (saldoCajaAhorro = localStorage.setItem("saldo", actualizarSaldoCajaAhorro()));
