@@ -2,6 +2,16 @@
 window.onload = () => {
   obtenerValorDolar();
 }
+// Constructor del objeto operaciones
+class Operacion {
+  constructor(fecha, hora, operacion, monto, saldo) {
+    this.fecha = fecha;
+    this.hora = hora;
+    this.operacion = operacion;
+    this.monto = monto;
+    this.saldo = saldo;
+  }
+}
 //Variable que recupera la informacion del local storage
 let saldoCajaOperable = localStorage.getItem("saldo");
 //Funcion que convierte el dato recuperado del localstorage a numero
@@ -101,9 +111,10 @@ const confirmarOperacion = () => {
       Swal.fire(
         'Operación realizada con exito. Su saldo es ' + convertirSaldoADinero(), '', 'success'
       ).then(function () {
-        window.location.href = "../opcion/opcion.html";
+        // window.location.href = "../opcion/opcion.html";
         //Llamada a las funciones
         actualizarSaldoStorage(); 
+        console.log(numeroADinero(comprarDolares()));
       })
     } else if (result.isDismissed) {
       Swal.fire(
@@ -118,7 +129,6 @@ const confirmarOperacion = () => {
 dolaresComprados.onclick = () => {
   if ((cantidadDolares.value > 0) && (cantidadDolares.value < 200)){
     confirmarOperacion();
-    
   } else {
   //Codigo que devuelve un alert si la opcion ingresada es invalida
     Swal.fire({
@@ -132,27 +142,6 @@ dolaresComprados.onclick = () => {
     });
   }
 }
-//Funcion que crea el objeto operaciones para ser incorparado al Json operaciones
-const crearOperacion = () => {
-  // Constructor del objeto operaciones
-  class Operacion {
-    constructor(fecha, hora, operacion, monto, saldo) {
-      this.fecha = fecha;
-      this.hora = hora;
-      this.operacion = operacion;
-      this.monto = monto;
-      this.saldo = saldo;
-    }
-  }
-  //Codigo que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
-  nuevaOperacion = new Operacion(
-    capturarDia(),
-    capturarHora(),
-    nombrarOperacion(),
-    numeroADinero(cantidadDolares.value),
-    convertirSaldoADinero()
-  );
-}
 //Codigo que informa el tipo de operacion
 const nombrarOperacion = () => "Compra dolares";
 //Codigo que actualiza el saldo de la caja de ahorro simulada
@@ -160,5 +149,22 @@ const actualizarSaldoCajaAhorro = () => {
   saldoCajaAhorro = convertirStorageANumero() - comprarDolares();
   return saldoCajaAhorro;
 }
+//Funcion que actualiza el saldo almacenado en el localstorage
+const actualizarSaldoStorage = () => (saldoCajaAhorro = localStorage.setItem("saldo", actualizarSaldoCajaAhorro()));
+//Funcion que captura la fecha en que se realiza la operación
+const capturarDia = () => new Date().toLocaleDateString();
+//Funcion que captura la hora en que se realiza la operacion
+const capturarHora = () => new Date().toLocaleTimeString();
+//Codigo que convierte a pesos el saldo simulado
+const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
+//Codigo que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
+nuevaOperacion = new Operacion(
+  capturarDia(),
+  capturarHora(),
+  nombrarOperacion(),
+  numeroADinero(comprarDolares()),
+  convertirSaldoADinero()
+);
+
 
 
