@@ -1,5 +1,5 @@
 //Funcion que coinvierte un numero al formato de pesos argentinos
-const numeroAPesos = (dinero) => {
+const numeroADinero = (dinero) => {
   return (dinero = new Intl.NumberFormat("es-AR", {
     style: "currency",
     currency: "ARS",
@@ -13,7 +13,7 @@ saldoCajaAhorro == null && localStorage.setItem("saldo", 150000);
 const cuentas = [];
 //Funcion que carga los objetos literales que contienen la informacion de las cuentas bancarias simuladas al array de cuentas
 function cargarCuentas() {
-  cuentas.push({tipo: "Caja de Ahorro", moneda: "$", cuenta: "5069-5689756/4", identificador: "Cuenta", saldo: `${numeroAPesos(saldoCajaAhorro)}`});
+  cuentas.push({tipo: "Caja de Ahorro", moneda: "$", cuenta: "5069-5689756/4", identificador: "Cuenta", saldo: `${numeroADinero(saldoCajaAhorro)}`});
   cuentas.push({tipo: "Cta Corriente", moneda: "$", cuenta: "5069-5689652/4", identificador: "Cuenta", saldo: "$ 200.000,00"});
   cuentas.push({tipo: "Caja de Ahorro", moneda: "USD", cuenta: "5069-5685686/4", identificador: "Cuenta", saldo: "USD 5.000,00"});
 }  
@@ -33,9 +33,32 @@ const capturarDia = () => new Date().toLocaleDateString();
 //Funcion que captura la hora en que se realiza la operacion
 const capturarHora = () => new Date().toLocaleTimeString();
 //Codigo que convierte a pesos el saldo simulado
-const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
+const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
 
 //Funcion que actualiza el saldo almacenado en el localstorage
 const actualizarSaldoStorage = () => (saldoCajaAhorro = localStorage.setItem("saldo", actualizarSaldoCajaAhorro()));
 
 const almacenarOperacion = (op) => (localStorage.setItem("operacion", op));
+
+//Funcion que crea el objeto operaciones para ser incorparado al Json operaciones
+const crearOperacion = () => {
+  // Constructor del objeto operaciones
+  class Operacion {
+    constructor(fecha, hora, operacion, monto, saldo) {
+      this.fecha = fecha;
+      this.hora = hora;
+      this.operacion = operacion;
+      this.monto = monto;
+      this.saldo = saldo;
+    }
+  }
+  //Codigo que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
+  nuevaOperacion = new Operacion(
+    capturarDia(),
+    capturarHora(),
+    nombrarOperacion(),
+    numeroADinero(),
+    convertirSaldoADinero(),
+    actualizarSaldoStorage()
+  );
+}

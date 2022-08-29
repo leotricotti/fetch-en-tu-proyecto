@@ -30,11 +30,11 @@ const actualizarSaldoStorage = () =>
     actualizarSaldoCajaAhorro()
   ));
 //Funcion que convierte al formato de moneda local el dato parseado
-const numeroADinero = () => numeroAPesos(extraerDinero());
+const numeroADinero = () => numeroADinero(extraerDinero());
 //Codigo que convierte al formato de moneda local el saldo simulado
-const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
+const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
 //Funcion que coinvierte un numero al formato de pesos argentinos
-const numeroAPesos = (dinero) => {
+const numeroADinero = (dinero) => {
   return (dinero = new Intl.NumberFormat("es-AR", {
     style: "currency",
     currency: "ARS",
