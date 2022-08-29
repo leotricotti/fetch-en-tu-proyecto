@@ -31,7 +31,7 @@ const actualizarSaldoStorage = () =>
     operarTransferencia()
   ));
 //Funcion que convierte un numero al formato de pesos argentinos
-const numeroADinero = (dinero) => {
+const numeroAPesos = (dinero) => {
   return (dinero = new Intl.NumberFormat("es-AR", {
     style: "currency",
     currency: "ARS",
@@ -41,7 +41,7 @@ const numeroADinero = (dinero) => {
 const confirmar = () => {
   Swal.fire({
     icon: "question",
-    title: `Desea transferir a ${cuentaSeleccionada} la suma de ${numeroADinero(inputTransferencia.value)} ?`,
+    title: `Desea transferir a ${cuentaSeleccionada} la suma de ${numeroAPesos(inputTransferencia.value)} ?`,
     confirmButtonText: 'Save',
     confirmButtonColor: "#3085d6",
     confirmButtonText: "Aceptar",
@@ -54,7 +54,7 @@ const confirmar = () => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       Swal.fire(
-        'Operación realizada con exito. Su saldo es ' + numeroADinero(operarTransferencia()), '', 'success'
+        'Operación realizada con exito. Su saldo es ' + numeroAPesos(operarTransferencia()), '', 'success'
       ).then(function () {
         window.location.href = "../opcion/opcion.html";
       })

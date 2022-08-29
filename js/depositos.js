@@ -56,9 +56,9 @@ const actualizarSaldoStorage = () =>
     actualizarSaldoCajaAhorro()
   ));
 //Funcion que convierte a pesos el dato parseado
-const numeroADinero = () => numeroADinero(depositar());
+const numeroADinero = () => numeroAPesos(depositar());
 //Codigo que convierte a pesos el saldo simulado
-const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
+const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
 //Funcion que dispara un alert que confirma o cancela la operación
 const confirmarOperacion = () => {
   Swal.fire({
