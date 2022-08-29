@@ -18,7 +18,7 @@ const dolaresComprados = document.getElementById("monedas-submit");
 const clean = document.getElementById("limpiar-campo");
 // Funcion que limpia el campo input en caso de que el usuario quiera modificar el importe a depositar
 clean.onclick = () => {
-  inputDepositos.value = "";
+  cantidadDolares.value = "";
 };
 //Funcion que calcula la compra de dolares
 const comprarDolares = () => {
@@ -103,7 +103,8 @@ const confirmarOperacion = () => {
       ).then(function () {
         window.location.href = "../opcion/opcion.html";
         //Llamada a las funciones
-        actualizarSaldoStorage();        
+        actualizarSaldoStorage(); 
+        almacenarOperacion(crearOperacion());
       })
     } else if (result.isDismissed) {
       Swal.fire(
@@ -118,6 +119,7 @@ const confirmarOperacion = () => {
 dolaresComprados.onclick = () => {
   if ((cantidadDolares.value > 0) && (cantidadDolares.value < 200)){
     confirmarOperacion();
+    
   } else {
   //Codigo que devuelve un alert si la opcion ingresada es invalida
     Swal.fire({
@@ -130,9 +132,9 @@ dolaresComprados.onclick = () => {
       },
     });
   }
-};
+}
 //Funcion que crea el objeto operaciones para ser incorparado al Json operaciones
-actualizarJson = () => {
+const crearOperacion = () => {
   // Constructor del objeto operaciones
   class Operacion {
     constructor(fecha, hora, operacion, monto, saldo) {
@@ -161,4 +163,12 @@ const actualizarSaldoCajaAhorro = () => {
   return saldoCajaAhorro;
 };
 
+function escribirJson(){
+  fetch('../json/operaciones.json')
+      .then( (res) => res.json())
+      .then( (data) => {
+      operacion = actualizarJson();
+      console.log(operacion);
+      });
+}
 

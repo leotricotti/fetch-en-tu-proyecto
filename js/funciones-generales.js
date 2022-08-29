@@ -37,3 +37,5 @@ const convertirSaldoADinero = () => numeroAPesos(actualizarSaldoCajaAhorro());
 
 //Funcion que actualiza el saldo almacenado en el localstorage
 const actualizarSaldoStorage = () => (saldoCajaAhorro = localStorage.setItem("saldo", actualizarSaldoCajaAhorro()));
+
+const almacenarOperacion = (op) => (localStorage.setItem("operacion", op));
