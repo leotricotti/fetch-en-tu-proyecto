@@ -1,5 +1,5 @@
 //Variable que recupera la informacion del local storage
-let saldoCajaOperable = localStorage.getItem("saldo");
+let saldoCajaOperable = localStorage.getItem(saldo);
 console.log(saldoCajaOperable);
 //Funcion que convierte el dato recuperado del localstorage a numero
 const convertirStorageANumero = () => parseFloat(saldoCajaOperable);
@@ -52,7 +52,7 @@ const actualizarSaldoCajaAhorro = () => {
 //Funcion que actualiza el saldo almacenado en el localstorage
 const actualizarSaldoStorage = () =>
   (saldoCajaAhorro = localStorage.setItem(
-    "saldo",
+    saldo,
     actualizarSaldoCajaAhorro()
   ));
 //Funcion que convierte a pesos el dato parseado

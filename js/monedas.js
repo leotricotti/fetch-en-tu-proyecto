@@ -1,3 +1,4 @@
+const operacionesDolar = [];
 //Funcion que carga la funcion que inyecta la tabla con la cotizacion del dolar en tiempo real
 window.onload = () => {
   obtenerValorDolar();
@@ -26,7 +27,7 @@ const cantidadDolares = document.getElementById("monedas-input");
 const dolaresComprados = document.getElementById("monedas-submit");
 //Codigo que captura el boton que modifica el valor ingresado
 const clean = document.getElementById("limpiar-campo");
-// Funcion que limpia el campo input en caso de que el usuario quiera modificar el importe a depositar
+//Funcion que limpia el campo input en caso de que el usuario quiera modificar el numero ingresado
 clean.onclick = () => {
   cantidadDolares.value = "";
 };
@@ -114,7 +115,9 @@ const confirmarOperacion = () => {
         // window.location.href = "../opcion/opcion.html";
         //Llamada a las funciones
         actualizarSaldoStorage(); 
-        console.log(numeroADinero(comprarDolares()));
+        crearOperacion();
+        cargarOperacion();
+        console.log(operacionesDolar);
       })
     } else if (result.isDismissed) {
       Swal.fire(
@@ -158,13 +161,24 @@ const capturarHora = () => new Date().toLocaleTimeString();
 //Codigo que convierte a pesos el saldo simulado
 const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
 //Codigo que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
-nuevaOperacion = new Operacion(
-  capturarDia(),
-  capturarHora(),
-  nombrarOperacion(),
-  numeroADinero(comprarDolares()),
-  convertirSaldoADinero()
-);
 
+let operacionesDolarStorage = (localStorage.getItem("operacionesDolar"));
+//Operador avanzado que verifica si existe el objeto saldo, si no es así lo crea
+operacionesDolarStorage == null && localStorage.setItem("operacionesDolar", operacionesDolar);
 
+const crearOperacion = () => {
+  nuevaOperacion = new Operacion(
+    capturarDia(),
+    capturarHora(),
+    nombrarOperacion(),
+    numeroADinero(comprarDolares()),
+    convertirSaldoADinero()
+  );
+  return nuevaOperacion;
+}
+
+const cargarOperacion = () => {
+  operacionesDolar.unshift(crearOperacion());
+  guardarLocal("operacionesDolar", JSON.stringify(operacionesDolar));
+}
 
