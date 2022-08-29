@@ -1,3 +1,4 @@
+//Array que almacena las operaciones realizadas con dolares
 const operacionesDolar = [];
 //Funcion que carga la funcion que inyecta la tabla con la cotizacion del dolar en tiempo real
 window.onload = () => {
@@ -112,7 +113,7 @@ const confirmarOperacion = () => {
       Swal.fire(
         'Operación realizada con exito. Su saldo es ' + convertirSaldoADinero(), '', 'success'
       ).then(function () {
-        // window.location.href = "../opcion/opcion.html";
+        window.location.href = "../opcion/opcion.html";
         //Llamada a las funciones
         actualizarSaldoStorage(); 
         crearOperacion();
@@ -160,12 +161,7 @@ const capturarDia = () => new Date().toLocaleDateString();
 const capturarHora = () => new Date().toLocaleTimeString();
 //Codigo que convierte a pesos el saldo simulado
 const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
-//Codigo que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
-
-let operacionesDolarStorage = (localStorage.getItem("operacionesDolar"));
-//Operador avanzado que verifica si existe el objeto saldo, si no es así lo crea
-operacionesDolarStorage == null && localStorage.setItem("operacionesDolar", operacionesDolar);
-
+//Funcion que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
 const crearOperacion = () => {
   nuevaOperacion = new Operacion(
     capturarDia(),
@@ -176,7 +172,11 @@ const crearOperacion = () => {
   );
   return nuevaOperacion;
 }
-
+//Codigo que crea la variable donde se almacenaran las operaciones simuladas
+let operacionesDolarStorage = (localStorage.getItem("operacionesDolar"));
+//Operador avanzado que verifica si existe en el localstorage el objeto operaciones dolar, si no es así lo crea
+operacionesDolarStorage == null && localStorage.setItem("operacionesDolar", operacionesDolar);
+//Funcion que almacena las nuevas operaciones en el localstorage
 const cargarOperacion = () => {
   operacionesDolar.unshift(crearOperacion());
   guardarLocal("operacionesDolar", JSON.stringify(operacionesDolar));

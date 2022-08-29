@@ -1,5 +1,5 @@
 //Variable que recupera la informacion del local storage
-let saldoCajaOperable = localStorage.getItem(saldo);
+let saldoCajaOperable = localStorage.getItem("saldo");
 //Funcion que convierte el dato recuperado del localstorage a numero
 const convertirStorageANumero = () => parseFloat(saldoCajaOperable);
 //Variable que almacena el dato convertido a numero
@@ -19,17 +19,12 @@ const clean = document.getElementById("limpiar-campo");
 //Codigo que captura el boton modificar
 const opcionModificada = document.getElementById("limpiar-campo");
 // Funcion que limpia el campo input si el usuario así lo requiere
-opcionModificada.onclick = () => {
-  inputTransferencia.value = "";
-};
+opcionModificada.onclick = () => inputTransferencia.value = "";
 //Funcion que descuenta el dinero transferido del saldo simulado
 const operarTransferencia = () => saldoCajaOperable - parseFloat(inputTransferencia.value);
 //Funcion que actualiza el saldo almacenado en el localstorage
 const actualizarSaldoStorage = () =>
-  (saldoCajaAhorro = localStorage.setItem(
-    saldo,
-    operarTransferencia()
-  ));
+  (saldoCajaAhorro = localStorage.setItem("saldo", operarTransferencia()));
 //Funcion que convierte un numero al formato de pesos argentinos
 const numeroAPesos = (dinero) => {
   return (dinero = new Intl.NumberFormat("es-AR", {
