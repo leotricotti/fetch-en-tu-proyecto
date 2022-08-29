@@ -38,27 +38,4 @@ const convertirSaldoADinero = () => numeroADinero(actualizarSaldoCajaAhorro());
 //Funcion que actualiza el saldo almacenado en el localstorage
 const actualizarSaldoStorage = () => (saldoCajaAhorro = localStorage.setItem("saldo", actualizarSaldoCajaAhorro()));
 
-const almacenarOperacion = (op) => (localStorage.setItem("operacion", op));
 
-//Funcion que crea el objeto operaciones para ser incorparado al Json operaciones
-const crearOperacion = () => {
-  // Constructor del objeto operaciones
-  class Operacion {
-    constructor(fecha, hora, operacion, monto, saldo) {
-      this.fecha = fecha;
-      this.hora = hora;
-      this.operacion = operacion;
-      this.monto = monto;
-      this.saldo = saldo;
-    }
-  }
-  //Codigo que utiliza el constructor Depositos para crear un nuevo objeto que contiene los datos de la operacion realizada
-  nuevaOperacion = new Operacion(
-    capturarDia(),
-    capturarHora(),
-    nombrarOperacion(),
-    numeroADinero(),
-    convertirSaldoADinero(),
-    actualizarSaldoStorage()
-  );
-}

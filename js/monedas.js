@@ -62,8 +62,8 @@ const mostrarCotizacion = () => {
           <td>${new Date().toLocaleDateString()}</td>
           <td>${new Date().toLocaleTimeString()}</td>
           <td>Dolar Estadounidense</td>
-          <td>${numeroAPesos(valorDolarCompra)}</td>
-          <td>${numeroAPesos(valorDolarVenta)}</td>
+          <td>${numeroADinero(valorDolarCompra)}</td>
+          <td>${numeroADinero(valorDolarVenta)}</td>
         </tr>
       `;
   //Codigo que agrega la cabeza y el cuerpo a la tabla creada anteriormente
@@ -87,7 +87,7 @@ async function obtenerValorDolar() {
 const confirmarOperacion = () => {
   Swal.fire({
     icon: "question",
-    title: `Desea adquirir ${numeroADolar(cantidadDolares.value)} a ${numeroAPesos(comprarDolares())} ?`,
+    title: `Desea adquirir ${numeroADolar(cantidadDolares.value)} a ${numeroADinero(comprarDolares())} ?`,
     confirmButtonText: 'Save',
     confirmButtonColor: "#3085d6",
     confirmButtonText: "Aceptar",
@@ -104,7 +104,6 @@ const confirmarOperacion = () => {
         window.location.href = "../opcion/opcion.html";
         //Llamada a las funciones
         actualizarSaldoStorage(); 
-        almacenarOperacion(crearOperacion());
       })
     } else if (result.isDismissed) {
       Swal.fire(
@@ -150,9 +149,8 @@ const crearOperacion = () => {
     capturarDia(),
     capturarHora(),
     nombrarOperacion(),
-    numeroADinero(),
-    convertirSaldoADinero(),
-    actualizarSaldoStorage()
+    numeroADinero(cantidadDolares.value),
+    convertirSaldoADinero()
   );
 }
 //Codigo que informa el tipo de operacion
@@ -161,14 +159,6 @@ const nombrarOperacion = () => "Compra dolares";
 const actualizarSaldoCajaAhorro = () => {
   saldoCajaAhorro = convertirStorageANumero() - comprarDolares();
   return saldoCajaAhorro;
-};
-
-function escribirJson(){
-  fetch('../json/operaciones.json')
-      .then( (res) => res.json())
-      .then( (data) => {
-      operacion = actualizarJson();
-      console.log(operacion);
-      });
 }
+
 
